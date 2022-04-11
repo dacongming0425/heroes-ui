@@ -1,3 +1,4 @@
+import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import {Hero} from "../hero";
 import {HeroService} from "../hero.service";
@@ -10,15 +11,31 @@ import {MessageService} from "../message.service";
 })
 export class HeroesComponent implements OnInit {
   heroes:Hero[] = [];
+  dataSource : Hero[] ;
+  rowExpanded = new Set<number>();
+  heroName = '';
+  
+  constructor(private heroService: HeroService, private messageService: MessageService) { 
+    this.dataSource  = this.heroes.slice();
 
-  constructor(private heroService: HeroService, private messageService: MessageService) { }
+}
 
+toggleRow(id: number) {
+  if (this.rowExpanded.has(id)) {
+    this.rowExpanded.delete(id);
+  } else {
+    this.rowExpanded.add(id);
+  }
+}
   ngOnInit(): void {
     this.getHeroes();
   }
 
-  getHeroes():void{
-    this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes);
+  getHeroes(): void {
+    this.heroService.getHeroes().subscribe(heroes => {
+      this.heroes = heroes
+      this.dataSource = heroes
+    });
   }
 
   add(name: string): void {

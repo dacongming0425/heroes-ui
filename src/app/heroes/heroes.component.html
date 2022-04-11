@@ -1,12 +1,55 @@
 
   <h2>My Heroes</h2>
+  <aui-table [dataSource]="dataSource">
+    <ng-container auiTableColumnDef="id">
+      <aui-table-header-cell *auiTableHeaderCellDef>No.</aui-table-header-cell>
+      <aui-table-cell *auiTableCellDef="let item">
+        <div>{{ item.id }}</div>
+      </aui-table-cell>
+    </ng-container>
+    <ng-container auiTableColumnDef="name">
+      <aui-table-header-cell *auiTableHeaderCellDef>Name</aui-table-header-cell>
+      <aui-table-cell *auiTableCellDef="let item">
+        <a routerLink="/detail/{{item.id}}"> <div>{{ item.name }}</div></a>
+      </aui-table-cell>
+    </ng-container>
+    <ng-container auiTableColumnDef="value">
+      <aui-table-header-cell *auiTableHeaderCellDef>Delete</aui-table-header-cell>
+      <aui-table-cell *auiTableCellDef="let item">
+        <button  aui-button="success" title="delete hero" (click)="delete(item)">X</button>
+      </aui-table-cell>
+      
+    </ng-container>
+    <aui-table-header-row
+      *auiTableHeaderRowDef="['id', 'name', 'value']; sticky: true"
+    ></aui-table-header-row>
+    <aui-table-row
+      *auiTableRowDef="let row; columns: ['id', 'name', 'value'];"
+    ></aui-table-row>
+  </aui-table>
+  
+  <form
+  #form="ngForm"
+  auiForm
+  auiFormLabelWidth="114px"
+  auiFormLabelPosition="right"
+  [auiFormInline]="false"
+  [auiFormEmptyAddon]="true"
+>
   <div>
-    <label for="new-hero">Hero name: </label>
-    <input id="new-hero" #heroName/>
-    <button class="add-button" (click)="add(heroName.value); heroName.value=''">
+    <aui-form-item width="small">
+      <label auiFormItemLabel>Edit your hero</label>
+      <input aui-input auiFormItemControl name="small" [(ngModel)]="heroName" />
+    </aui-form-item>
+    <button aui-button="primary" [round]="true" class="add-button" (click)="add(heroName); heroName=''">
       Add hero
     </button>
   </div>
+</form>
+
+
+
+
   <ul class="heroes">
     <li *ngFor="let hero of heroes">
       <a routerLink="/detail/{{hero.id}}">
@@ -16,4 +59,6 @@
     </li>
   </ul>
 
+  
+ 
   
