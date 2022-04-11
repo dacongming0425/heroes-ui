@@ -26,7 +26,8 @@ import { BreadcrumbModule, ButtonModule } from '@alauda/ui';
     BreadcrumbComponent
   ],
     imports: [
-      BreadcrumbModule,
+      
+     BreadcrumbModule,
         BrowserModule,
         AppRoutingModule,
         FormsModule,

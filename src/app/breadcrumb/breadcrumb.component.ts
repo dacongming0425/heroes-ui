@@ -35,9 +35,7 @@ export class BreadcrumbComponent implements OnInit {
       });
   }
 
-  /**
-   * 返回IBreadcrumb对象的数组
-   */
+  
   private getBreadcrumbs(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadcrumb[] = []): any {
     const ROUTE_DATA_BREADCRUMB = 'breadcrumb';
 
@@ -77,8 +75,7 @@ export class BreadcrumbComponent implements OnInit {
         params: child.snapshot.params,
         url: url
       };
-      // 此处的 component 如果为 undefined，可能是因为懒加载，在查找时，没有找到 component 的值，
-      // 所以当 component 为 undefined 的时候，就会又往数组里再追加一次，会重复
+
       if (child.component) {
         breadcrumbs.push(breadcrumb);
       }
