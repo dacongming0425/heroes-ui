@@ -12,6 +12,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { HeroSearchComponent } from './hero-search/hero-search.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { BreadcrumbModule, ButtonModule } from '@alauda/ui';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,16 @@ import { HeroSearchComponent } from './hero-search/hero-search.component';
     HeroDetailComponent,
     MessagesComponent,
     DashboardComponent,
-    HeroSearchComponent
+    HeroSearchComponent,
+    BreadcrumbComponent
   ],
     imports: [
+      BreadcrumbModule,
         BrowserModule,
         AppRoutingModule,
         FormsModule,
         HttpClientModule,
+        ButtonModule,
         HttpClientInMemoryWebApiModule.forRoot(
           InMemoryDataService, { dataEncapsulation: false}
         )

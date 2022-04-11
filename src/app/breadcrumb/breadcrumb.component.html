@@ -1,0 +1,6 @@
+
+
+    <aui-breadcrumb *ngFor="let breadcrumb of breadcrumbs" >
+      <aui-breadcrumb-item><a href="/">home</a></aui-breadcrumb-item>
+      <aui-breadcrumb-item><a [routerLink]="[breadcrumb.url, breadcrumb.params]" href="/">{{ breadcrumb.label }}</a></aui-breadcrumb-item>
+    </aui-breadcrumb>
