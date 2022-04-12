@@ -4,9 +4,9 @@
   <div><span>id: </span>{{hero.id}}</div>
   <div>
     <label for="hero-name">Hero name: </label>
-    <input id="hero-name" [(ngModel)]="hero.name" placeholder="name">
+    <input class="name" id="hero-name" [(ngModel)]="hero.name" placeholder="name">
   </div>
 
-  <button (click)="save()">save</button>
-  <button (click)="goBack()">go back</button>
+  <button aui-button="success" (click)="save()">save</button>
+  <button aui-button="warning" (click)="goBack()">go back</button>
 </div>
