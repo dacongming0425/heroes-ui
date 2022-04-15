@@ -1,8 +1,11 @@
-import { DataSource } from '@angular/cdk/collections';
+
 import { Component, OnInit } from '@angular/core';
 import {Hero} from "../hero";
 import {HeroService} from "../hero.service";
 import {MessageService} from "../message.service";
+import { ChangeDetectorRef } from '@angular/core';
+import { DialogService, } from '@alauda/ui';
+import {  TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'app-heroes',
@@ -15,9 +18,15 @@ export class HeroesComponent implements OnInit {
   rowExpanded = new Set<number>();
   heroName = '';
   
-  constructor(private heroService: HeroService, private messageService: MessageService) { 
+  
+  constructor(public changeDetectorRef:ChangeDetectorRef,private readonly dialog: DialogService,
+    private heroService: HeroService, private messageService: MessageService) { 
     this.dataSource  = this.heroes.slice();
+   
 
+}
+open(template: TemplateRef<any>) {
+  this.dialog.open(template);
 }
 
 toggleRow(id: number) {
@@ -41,12 +50,14 @@ toggleRow(id: number) {
   add(name: string): void {
     name = name.trim();
     if(!name){return;}
-    this.heroService.addHero({ name } as Hero).subscribe(hero => this.heroes.push(hero));
+    this.heroService.addHero({ name } as Hero).subscribe(hero => {this.heroes.push(hero)
+      this.dataSource =this.heroes.slice()});
+   
   }
 
   delete(hero: Hero): void {
     this.heroes = this.heroes.filter(h => h !== hero);
-    this.heroService.deleteHero(hero.id).subscribe();
+    this.heroService.deleteHero(hero.id).subscribe(()=>this.dataSource =this.heroes.slice());
   }
 
 }

@@ -28,37 +28,38 @@
     ></aui-table-row>
   </aui-table>
   
-  <form
-  #form="ngForm"
-  auiForm
-  auiFormLabelWidth="114px"
-  auiFormLabelPosition="right"
-  [auiFormInline]="false"
-  [auiFormEmptyAddon]="true"
->
-  <div>
-    <aui-form-item width="small">
-      <label auiFormItemLabel>Edit your hero</label>
-      <input aui-input auiFormItemControl name="small" [(ngModel)]="heroName" />
-    </aui-form-item>
-    <button aui-button="primary" [round]="true" class="add-button" (click)="add(heroName); heroName=''">
-      Add hero
-    </button>
-  </div>
-</form>
-
-
-
-
-  <ul class="heroes">
-    <li *ngFor="let hero of heroes">
-      <a routerLink="/detail/{{hero.id}}">
-        <span class="badge">{{hero.id}}</span> {{hero.name}}
-      </a>
-      <button class="delete" title="delete hero" (click)="delete(hero)">x</button>
-    </li>
-  </ul>
-
-  
- 
-  
+  <button aui-button="primary" (click)="open(dialog)">Add hero</button>
+    <ng-template #dialog>
+      <aui-dialog-header>
+        <aui-icon icon="exclamation_circle_s" background="circle"></aui-icon>
+        <span>
+          Edit your favorite hero</span>
+      </aui-dialog-header>
+      <aui-dialog-content>
+        <form
+        #form="ngForm"
+        auiForm
+        auiFormLabelWidth="114px"
+        auiFormLabelPosition="right"
+        [auiFormInline]="false"
+        [auiFormEmptyAddon]="true"
+      >
+        <div>
+          <aui-form-item width="large">
+            <label auiFormItemLabel>Edit your hero</label>
+            <input 
+            minlength="5"
+            maxlength="13"
+            aui-input auiFormItemControl name="large" [(ngModel)]="heroName" />
+            
+          </aui-form-item>
+        
+        </div>
+        
+      </form>
+      </aui-dialog-content>
+      <aui-dialog-footer>
+        <button aui-button="primary" [auiDialogClose]="true" (click)="add(heroName); heroName=''" >Add hero</button>
+        <button aui-button [auiDialogClose]="false">Cancel</button>
+      </aui-dialog-footer>
+    </ng-template>
