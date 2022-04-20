@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Hero} from "../hero";
 import {HeroService} from "../hero.service";
-import {MessageService} from "../message.service";
+
 import { ChangeDetectorRef } from '@angular/core';
 import { DialogService, } from '@alauda/ui';
 import {  TemplateRef } from '@angular/core';
@@ -19,8 +19,11 @@ export class HeroesComponent implements OnInit {
   heroName = '';
   
   
-  constructor(public changeDetectorRef:ChangeDetectorRef,private readonly dialog: DialogService,
-    private heroService: HeroService, private messageService: MessageService) { 
+  constructor(
+    public changeDetectorRef:ChangeDetectorRef,
+    private readonly dialog: DialogService,
+    private heroService: HeroService, 
+    ) { 
     this.dataSource  = this.heroes.slice();
    
 

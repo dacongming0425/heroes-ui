@@ -26,63 +26,60 @@ export class BreadcrumbComponent implements OnInit {
 
   ngOnInit() {
     
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(event => {
-
+    this.router.events.pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe(() => {
+     
         const root: ActivatedRoute = this.activatedRoute.root;
-
+        
         this.breadcrumbs = this.getBreadcrumbs(root);
       });
   }
 
   
   private getBreadcrumbs(route: ActivatedRoute, url: string = '', breadcrumbs: IBreadcrumb[] = []): any {
-    const ROUTE_DATA_BREADCRUMB = 'breadcrumb';
-
-
-    const children: ActivatedRoute[] = route.children;
-
-
    
+
+ 
+    const children: ActivatedRoute[] = route.children;
+   
+
+ 
     if (children.length === 0) {
-    
+     
       return breadcrumbs;
     }
 
  
     for (const child of children) {
-     
-      if (child.outlet !== PRIMARY_OUTLET) {
+      
+      if (child.outlet !== PRIMARY_OUTLET) {   
         continue;
       }
 
+    
 
-      if (!child.snapshot.data.hasOwnProperty(ROUTE_DATA_BREADCRUMB)) {
-        return this.getBreadcrumbs(child, url, breadcrumbs);
-      }
-
-
+     
       const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
-      
+     
       if (routeURL) {
-
+      
         url += `/${routeURL}`;
       }
 
-
+     
       const breadcrumb: IBreadcrumb = {
-        label: child.snapshot.data[ROUTE_DATA_BREADCRUMB],
+        label: child.snapshot.data['breadcrumb'],
         params: child.snapshot.params,
         url: url
       };
 
-      if (child.component) {
+      
         breadcrumbs.push(breadcrumb);
-      }
-
-
+      
 
      
+
+ 
       return this.getBreadcrumbs(child, url, breadcrumbs);
     }
   }
